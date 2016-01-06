@@ -47,8 +47,9 @@ class GISFactory():
 
 
 	def processGeoms(self, inputGeoms, operation, distance,units):
+		allGeoms =[]
 		for curFeature in inputGeoms['features']:
-			allGeoms, errorCounter = self.genFeature(curFeature['geometry'],allGeoms=[], errorCounter=0)
+			allGeoms, errorCounter = self.genFeature(curFeature['geometry'],allGeoms=allGeoms, errorCounter=0)
 		#all geometries are now features.
 		if (operation =='buffer'):
 			buf = float(int(distance)/100000.0)
