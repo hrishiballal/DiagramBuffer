@@ -1,4 +1,4 @@
-import gisHelper, requests, json, GeodesignHub
+import gisHelper, requests, json, GeodesignHub, config
 # A sample script to take a diagram from Geodesign Hub, buffer it and send
 # it back as a new diagram using the API.
 #
@@ -8,7 +8,7 @@ if __name__ == "__main__":
 	operation = 'buffersubtract' # GIS operation
 	distance = 100 # distance of buffer
 	units = 'm' # units
-	myAPIHelper = GeodesignHub.GeodesignHubClient(url = 'http://local.dev:8000/api/v1/', project_id='62ead880b1592bc0', token='5d72a5465bc8a61bb6dd02457cbf97150735bfbf')
+	myAPIHelper = GeodesignHub.GeodesignHubClient(url = config.apisettings['serviceurl'], project_id=config.apisettings['projectid'], token=config.apisettings['apitoken'])
 	# the id of the diagram that needs to be transformed as a part of GIS operation.
 	r = myAPIHelper.get_diagram_geoms(diagID)
 
