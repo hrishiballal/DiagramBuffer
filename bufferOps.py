@@ -10,7 +10,7 @@ if __name__ == "__main__":
 	units = 'm' # units
 	myAPIHelper = GeodesignHub.GeodesignHubClient(url = config.apisettings['serviceurl'], project_id=config.apisettings['projectid'], token=config.apisettings['apitoken'])
 	# the id of the diagram that needs to be transformed as a part of GIS operation.
-	r = myAPIHelper.get_diagram_geoms(diagID)
+	r = myAPIHelper.get_diagram(diagID)
 
 	if r.status_code == 200:
 		op = json.loads(r.text)
