@@ -14,7 +14,7 @@ class GeodesignHubClient():
 		self.token = token
 		self.securl = url if url else 'https://www.geodesignhub.com/api/v1/'
 
-	def get_all_systems(self):
+	def get_systems(self):
 		''' This method gets all systems for a particular project.  '''
 		securl = self.securl+ 'projects'+ '/' + self.projectid + '/' +'systems' + '/'
 		headers = {'Authorization': 'Token '+ self.token}
@@ -73,7 +73,21 @@ class GeodesignHubClient():
 		
 	def get_synthesis(self, teamid, synthesisid):
 		assert type(teamid) is int, "Team id is not a integer: %r" % teamid
-		securl = self.securl + 'projects'+ '/' + self.projectid + '/cteams/'+ str(teamid) +'/' + str(synthesisid) 
+		securl = self.securl + 'projects'+ '/' + self.projectid + '/cteams/'+ str(teamid) +'/' + str(synthesisid) + '/'
+		headers = {'Authorization': 'Token '+ self.token}
+		r = requests.get(securl, headers=headers)
+		return r
+
+	def get_synthesis_timeline(self, teamid, synthesisid):
+		assert type(teamid) is int, "Team id is not a integer: %r" % teamid
+		securl = self.securl + 'projects'+ '/' + self.projectid + '/cteams/'+ str(teamid) +'/' + str(synthesisid) + '/timeline/'
+		headers = {'Authorization': 'Token '+ self.token}
+		r = requests.get(securl, headers=headers)
+		return r
+
+	def get_synthesis_diagrams(self, teamid, synthesisid):
+		assert type(teamid) is int, "Team id is not a integer: %r" % teamid
+		securl = self.securl + 'projects'+ '/' + self.projectid + '/cteams/'+ str(teamid) +'/' + str(synthesisid) + '/diagrams/'
 		headers = {'Authorization': 'Token '+ self.token}
 		r = requests.get(securl, headers=headers)
 		return r
@@ -94,11 +108,11 @@ class GeodesignHubClient():
 		r = requests.get(securl, headers=headers)
 		return r
 
-	def post_as_diagram(self, geoms, projectorpolicy, featuretype, description, sysid ):
+	def post_as_diagram(self, geoms, projectorpolicy, featuretype, description, sysid, fundingtype):
 		''' Create a requests object with correct headers and creds. '''
 		securl = self.securl+ 'projects'+ '/' + self.projectid + '/' +'systems'+'/'+ str(sysid) + '/'+ 'add' +'/' + projectorpolicy +'/'
 		headers = {'Authorization': 'Token '+ self.token, 'content-type': 'application/json'}
-		postdata = {'geometry':geoms, 'description':description, 'featuretype':featuretype}
+		postdata = {'geometry':geoms, 'description':description, 'featuretype':featuretype, 'fundingtype':fundingtype}
 		r = requests.post(securl, headers= headers, data = json.dumps(postdata))
 		return r
 

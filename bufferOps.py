@@ -18,5 +18,5 @@ if __name__ == "__main__":
 		myGISHelper = gisHelper.GISFactory()
 		transformedFC = myGISHelper.processGeoms(geoms, operation, distance, units)
 		# print json.dumps(transformedFC)
-		upload = myAPIHelper.post_as_diagram(geoms = transformedFC, projectorpolicy= 'policy',featuretype = 'polygon', description= 'Subtracted buffer', sysid = 2 )
+		upload = myAPIHelper.post_as_diagram(geoms = transformedFC, projectorpolicy= 'policy',featuretype = 'polygon', description= 'Subtracted buffer', sysid = 2 , fundingtype = 'o')
 		print upload.text
